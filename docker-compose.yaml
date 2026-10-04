@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+      - redis
+
+  web:
+    build:
+      context: ./web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+volumes:
+  mongo_data:
