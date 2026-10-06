@@ -1,0 +1,130 @@
+# Order Processing System
+
+Sistema de processamento assíncrono de pedidos desenvolvido com foco em prática de lógica de programação, NestJS, MongoDB, Mongoose, Redis e filas com BullMQ.
+
+O objetivo do projeto é simular parte do funcionamento de um sistema real de pedidos, onde uma requisição pode ser recebida rapidamente pela API e processada em segundo plano.
+
+---
+
+## Objetivo do projeto
+
+O sistema deverá permitir:
+
+- cadastrar produtos;
+- consultar produtos;
+- controlar estoque;
+- criar pedidos com vários produtos;
+- validar os itens de um pedido;
+- calcular o valor total;
+- processar pedidos de forma assíncrona;
+- acompanhar o status de processamento;
+- atualizar o estoque após uma venda;
+- registrar falhas no processamento;
+- utilizar Redis para filas e funcionalidades adicionais;
+- manter os dados principais persistidos no MongoDB.
+
+---
+
+# Tecnologias
+
+Backend:
+
+- Node.js
+- TypeScript
+- NestJS
+
+Banco de dados:
+
+- MongoDB
+- Mongoose
+
+Processamento assíncrono:
+
+- Redis
+- BullMQ
+- `@nestjs/bullmq`
+
+Possíveis tecnologias adicionais:
+
+- Swagger
+- class-validator
+- Jest
+
+---
+
+# Estrutura principal
+
+O sistema possui inicialmente dois domínios principais:
+
+```text
+Products
+Orders
+```
+
+## Products
+
+Representam os produtos disponíveis para compra.
+
+Exemplo:
+
+```ts
+{
+  id: "123",
+  name: "Teclado Mecânico",
+  price: 250,
+  stock: 10,
+  category: "perifericos"
+}
+```
+
+Cada produto deve possuir pelo menos:
+
+```ts
+name
+price
+stock
+category
+```
+
+---
+
+# Orders
+
+Representam os pedidos realizados.
+
+Um pedido poderá conter vários produtos.
+
+Exemplo:
+
+```ts
+{
+  items: [
+    {
+      productId: "123",
+      quantity: 2
+    },
+    {
+      productId: "456",
+      quantity: 1
+    }
+  ]
+}
+```
+
+O sistema deverá buscar os produtos correspondentes e calcular o valor real do pedido.
+
+O cliente não deverá informar diretamente o valor total.
+
+Por exemplo:
+
+```text
+Teclado
+R$ 250
+quantidade = 2
+
+Mouse
+R$ 100
+quantidade = 1
+```
+
+Total
