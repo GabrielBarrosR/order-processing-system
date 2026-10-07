@@ -4,6 +4,8 @@ import { AppService } from './app.service.js';
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductsModule } from './products/products.module.js';
+import { OrdersModule } from './orders/orders.module.js';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -15,7 +17,12 @@ import { ProductsModule } from './products/products.module.js';
       uri: ConfigService.get<string>('MONGODB_URI')
     }),
     inject: [ConfigService]
-  }), ProductsModule],
+  }),  BullModule.forRoot({
+    connection: {
+      host: 'redits',
+      port: 6379
+    }
+  }), ProductsModule, OrdersModule],
   controllers: [AppController],
   providers: [AppService],
 })

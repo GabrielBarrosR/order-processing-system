@@ -115,4 +115,13 @@ export class ProductsService {
             failed: notFoundProducts as string[]
         }
     }
+
+    async getById(id: string): Promise<Product> {
+        const result = await this.productModel.findById(id)
+
+        if (!result){
+            throw new NotFoundException("Produto não encontrado")
+        }
+        return result
+    }
 }
