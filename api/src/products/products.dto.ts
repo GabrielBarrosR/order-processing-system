@@ -1,4 +1,4 @@
-import { IsNumber, IsPositive, IsString, Min } from 'class-validator'
+import { IsNumber, IsOptional, IsPositive, IsString, Min } from 'class-validator'
 
 export class CreateProductDto {
     @IsString()
@@ -17,13 +17,16 @@ export class CreateProductDto {
 }
 
 export class FilterProductDto {
+    @IsOptional()
     @IsNumber()
     @Min(0)
     page?: number
 
+    @IsOptional()
     @IsString()
     name?: string
-
+    
+    @IsOptional()
     @IsString()
     category?: string
 }
@@ -31,32 +34,27 @@ export class FilterProductDto {
 export class UpdateProductDto {
 
     @IsString()
+    @IsOptional()
     name?: string
 
     @IsString()
+    @IsOptional()
     id?: string
 
     @IsString()
-    newName: string
+    @IsOptional()
+    newName?: string
 
     @IsNumber()
+    @IsOptional()
     @IsPositive({ message: "O preço deve ser maior que zero" })
     price?: number
 
     @IsNumber()
+    @IsOptional()
     stock?: number
 
     @IsString()
+    @IsOptional()
     category?: string
-}
-
-export class EditStockDto {
-    @IsString()
-    name?: string
-
-    @IsString()
-    id?: string
-
-    @IsNumber()
-    stock: number
 }

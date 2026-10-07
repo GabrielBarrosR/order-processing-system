@@ -6,7 +6,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductsModule } from './products/products.module.js';
 
 @Module({
-  imports: [MongooseModule.forRootAsync({
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+  }), 
+  MongooseModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: async (ConfigService: ConfigService) => ({
       uri: ConfigService.get<string>('MONGODB_URI')
@@ -16,4 +19,4 @@ import { ProductsModule } from './products/products.module.js';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

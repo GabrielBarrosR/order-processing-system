@@ -9,6 +9,6 @@ export interface Product {
 
 
 export interface updateResponse {
-    success: Product[],
+    success: Product[] | null,
     failed: string[] | null
 }
