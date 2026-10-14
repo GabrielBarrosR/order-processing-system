@@ -2,9 +2,8 @@ import { IsNumber, IsString, IsArray } from "class-validator";
 
 export class CreateOrderDto {
     @IsArray()
-    ordersItems: ItemOrderDto[]
+    orders: ItemOrderDto[]
 }
-
 
 export class ItemOrderDto {
     @IsString()

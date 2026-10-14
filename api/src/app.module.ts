@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductsModule } from './products/products.module.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { BullModule } from '@nestjs/bullmq';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -17,12 +18,15 @@ import { BullModule } from '@nestjs/bullmq';
       uri: ConfigService.get<string>('MONGODB_URI')
     }),
     inject: [ConfigService]
-  }),  BullModule.forRoot({
+  }),  
+  BullModule.forRoot({
     connection: {
-      host: 'redits',
+      host: 'localhost',
       port: 6379
     }
-  }), ProductsModule, OrdersModule],
+  }),
+  EventEmitterModule.forRoot(),
+   ProductsModule, OrdersModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -5,15 +5,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Orders, ordersSchema } from './orders.schema.js';
 import { BullModule } from '@nestjs/bullmq';
 import { ProductsService } from '../products/products.service.js';
+import { OrdersProcessor } from './orders.processor.js';
+import { ProductsModule } from '../products/products.module.js';
 
 @Module({
   imports: [MongooseModule.forFeature([{
     name: Orders.name,
     schema: ordersSchema
   }]), BullModule.registerQueue({
-    "name": "orders"  
-  }), ProductsService],
+    "name": "orders"
+  }), ProductsModule],
   controllers: [OrdersController],
-  providers: [OrdersService]
+  providers: [OrdersService, OrdersProcessor]
 })
-export class OrdersModule {}
+export class OrdersModule { }
