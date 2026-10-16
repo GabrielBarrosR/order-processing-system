@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsPositive, IsString, Min } from 'class-validator'
+import { Type } from 'class-transformer'
 
 export class CreateProductDto {
     @IsString()
@@ -18,6 +19,7 @@ export class CreateProductDto {
 
 export class FilterProductDto {
     @IsOptional()
+    @Type(() => Number)
     @IsNumber()
     @Min(0)
     page?: number

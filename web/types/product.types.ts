@@ -3,3 +3,11 @@ export interface IGetFilters {
     page?: number,
     category?: string
 }
+
+export interface IProduct {
+    id: string
+    name: string,
+    price: number,
+    stock: number
+    category: string
+}
